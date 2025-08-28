@@ -1,9 +1,70 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "../../components/ui/button";
-import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import Image from "next/image";
+
+const services = [
+  {
+    name: "Legal Consultation Services",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+  {
+    name: "Foreign Investment Services",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+  {
+    name: "Contracts",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+  {
+    name: "Natorization",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+  {
+    name: "Defense in All Cases",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+  {
+    name: "Banks and Financial Institutions",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+  {
+    name: "Corporate Governance Services",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+  {
+    name: "Companies Liquidation",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+  {
+    name: "Internal Regulations for Companies",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+  {
+    name: "Real Estate",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+];
 
 export default function HeroSection() {
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div
+      className="min-h-screen relative overflow-hidden"
+      onClick={() => setIsServicesOpen(false)}
+    >
       {/* Background Image */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -18,7 +79,15 @@ export default function HeroSection() {
       {/* Header Navigation */}
       <header className="relative z-10 flex items-center justify-between px-6 lg:px-24 py-5">
         {/* Logo/Brand Space */}
-        <div className="w-8"></div>
+        <div className="w-[100px]">
+          <Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Wikispecies_logo_Arabic_horizontal_in_white.svg/800px-Wikispecies_logo_Arabic_horizontal_in_white.svg.png?20250506202156"
+            alt="Logo"
+            width={302}
+            height={302}
+            className="w-full h-full object-contain"
+          />
+        </div>
 
         {/* Navigation Menu */}
         <nav className="hidden md:flex items-center space-x-8">
@@ -36,10 +105,28 @@ export default function HeroSection() {
           </a>
           <a
             href="#"
-            className="text-white text-base font-normal hover:text-white/80 transition-colors"
+            className="text-white text-base font-normal hover:text-white/80 transition-colors flex items-center"
+            onMouseEnter={() => setIsServicesOpen(true)}
           >
             Services
+            <span className="text-white text-base font-normal hover:text-white/80 transition-colors ml-2">
+              <ChevronDown className="w-4 h-4" />
+            </span>
           </a>
+          {/* Services Dropdown */}
+          {isServicesOpen && (
+            <div className="absolute top-16 right-[51%] translate-x-1/2 bg-[#4B2615] rounded-lg shadow-lg p-4 z-10">
+              <div className="space-y-2 text-white grid grid-cols-2 gap-6 gap-x-16 space-x-6">
+                {services.map((service) => (
+                  <div key={service.name} className="cursor-pointer">
+                    <a href="#" className="cursor-pointer">
+                      {service.name}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           <a
             href="#"
             className="text-white text-base font-normal hover:text-white/80 transition-colors"
