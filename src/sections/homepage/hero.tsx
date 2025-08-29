@@ -1,65 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "../../components/ui/button";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import { Search, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
-
-const services = [
-  {
-    name: "Legal Consultation Services",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    name: "Foreign Investment Services",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    name: "Contracts",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    name: "Natorization",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    name: "Defense in All Cases",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    name: "Banks and Financial Institutions",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    name: "Corporate Governance Services",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    name: "Companies Liquidation",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    name: "Internal Regulations for Companies",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    name: "Real Estate",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-];
+import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { fetchServices } from "@/lib/slices/servicesSlice";
 
 export default function HeroSection() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const { services: servicesData, loading } = useAppSelector(
+    (state) => state.services
+  );
+
+  useEffect(() => {
+    dispatch(fetchServices());
+  }, [dispatch]);
   return (
     <div
       className="min-h-screen relative overflow-hidden"
@@ -77,7 +35,7 @@ export default function HeroSection() {
       </div>
 
       {/* Header Navigation */}
-      <header className="relative z-10 flex items-center justify-between px-6 lg:px-24 py-5">
+      <header className="relative z-[1000] flex items-center justify-between px-6 lg:px-24 py-5">
         {/* Logo/Brand Space */}
         <div className="w-[100px]">
           <Image
@@ -115,15 +73,22 @@ export default function HeroSection() {
           </a>
           {/* Services Dropdown */}
           {isServicesOpen && (
-            <div className="absolute top-16 right-[51%] translate-x-1/2 bg-[#4B2615] rounded-lg shadow-lg p-4 z-10">
+            <div className="absolute top-16 right-[51%] translate-x-1/2 bg-[#4B2615] rounded-lg shadow-lg p-4 z-[1000]">
               <div className="space-y-2 text-white grid grid-cols-2 gap-6 gap-x-16 space-x-6">
-                {services.map((service) => (
-                  <div key={service.name} className="cursor-pointer">
-                    <a href="#" className="cursor-pointer">
-                      {service.name}
-                    </a>
-                  </div>
-                ))}
+                {loading ? (
+                  <div className="text-white text-sm">Loading services...</div>
+                ) : (
+                  servicesData.map((service) => (
+                    <div key={service.id} className="cursor-pointer">
+                      <Link
+                        href={`/services/${service.slug}`}
+                        className="cursor-pointer hover:text-white/80 transition-colors"
+                      >
+                        {service.name}
+                      </Link>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           )}
