@@ -2,11 +2,19 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Search, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  Globe,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { fetchServices } from "@/lib/slices/servicesSlice";
+import { useTranslation } from "react-i18next";
+import { useLanguageManager } from "@/lib/hooks/useLanguage";
 
 export default function HeroSection() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -14,10 +22,13 @@ export default function HeroSection() {
   const { services: servicesData, loading } = useAppSelector(
     (state) => state.services
   );
+  const { t } = useTranslation();
+  const { currentLanguage, changeLanguage, isRTL } = useLanguageManager();
 
   useEffect(() => {
     dispatch(fetchServices());
   }, [dispatch]);
+
   return (
     <div
       className="min-h-screen relative overflow-hidden"
@@ -53,20 +64,20 @@ export default function HeroSection() {
             href="#"
             className="text-white text-base font-normal hover:text-white/80 transition-colors"
           >
-            Home
+            {t("navigation.home")}
           </a>
           <a
             href="#"
             className="text-white text-base font-normal hover:text-white/80 transition-colors"
           >
-            About us
+            {t("navigation.aboutUs")}
           </a>
           <a
             href="#"
             className="text-white text-base font-normal hover:text-white/80 transition-colors flex items-center"
             onMouseEnter={() => setIsServicesOpen(true)}
           >
-            Services
+            {t("navigation.services")}
             <span className="text-white text-base font-normal hover:text-white/80 transition-colors ml-2">
               <ChevronDown className="w-4 h-4" />
             </span>
@@ -76,12 +87,14 @@ export default function HeroSection() {
             <div className="absolute top-16 right-[51%] translate-x-1/2 bg-[#4B2615] rounded-lg shadow-lg p-4 z-[1000]">
               <div className="space-y-2 text-white grid grid-cols-2 gap-6 gap-x-16 space-x-6">
                 {loading ? (
-                  <div className="text-white text-sm">Loading services...</div>
+                  <div className="text-white text-sm">
+                    {t("services.loading")}
+                  </div>
                 ) : (
                   servicesData.map((service) => (
                     <div key={service.id} className="cursor-pointer">
                       <Link
-                        href={`/services/${service.slug}`}
+                        href={`/${currentLanguage}/services/${service.slug}`}
                         className="cursor-pointer hover:text-white/80 transition-colors"
                       >
                         {service.name}
@@ -96,24 +109,39 @@ export default function HeroSection() {
             href="#"
             className="text-white text-base font-normal hover:text-white/80 transition-colors"
           >
-            Blog
+            {t("navigation.blog")}
           </a>
           <a
             href="#"
             className="text-white text-base font-normal hover:text-white/80 transition-colors"
           >
-            Our Team
+            {t("navigation.ourTeam")}
           </a>
           <a
             href="#"
             className="text-white text-base font-normal hover:text-white/80 transition-colors"
           >
-            Contact us
+            {t("navigation.contactUs")}
           </a>
         </nav>
 
         {/* Right Section - Search and CTA */}
         <div className="flex items-center space-x-4">
+          {/* Language Selector */}
+          <div className="flex items-center space-x-2">
+            <select
+              value={currentLanguage}
+              onChange={(e) => changeLanguage(e.target.value)}
+              className="bg-transparent text-white  rounded-lg px-3 py-1 text-sm focus:outline-none focus:border-white transition-colors"
+            >
+              <option value="en" className="bg-[#4B2615] text-white">
+                {t("language.en")}
+              </option>
+              <option value="ar" className="bg-[#4B2615] text-white">
+                {t("language.ar")}
+              </option>
+            </select>
+          </div>
           {/* Search Icon */}
           <div className="w-14 h-10 border border-white rounded-lg flex items-center justify-center">
             <Search className="w-5 h-5 text-white" />
@@ -124,7 +152,7 @@ export default function HeroSection() {
             variant="outline"
             className="bg-transparent border-white text-white hover:bg-white hover:text-black transition-colors px-6 py-2 text-xs font-medium rounded-lg"
           >
-            Book Appointment
+            {t("buttons.bookAppointment")}
           </Button>
         </div>
       </header>
@@ -156,17 +184,15 @@ export default function HeroSection() {
           <div className="space-y-8 lg:ml-16">
             <div className="space-y-6">
               <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
-                Lorem Ipsum
+                {t("hero.title")}
               </h1>
               <p className="text-base md:text-lg text-white leading-relaxed max-w-2xl">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
+                {t("hero.description")}
               </p>
             </div>
 
             <Button className="bg-white text-[#4B2615] hover:bg-white/90 transition-colors rounded-xl px-8 py-4 text-lg font-medium">
-              Read More
+              {t("hero.readMore")}
             </Button>
           </div>
 
@@ -187,16 +213,16 @@ export default function HeroSection() {
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-t border-white/20 p-4 z-20">
         <div className="flex justify-around">
           <a href="#" className="text-white text-sm">
-            Home
+            {t("navigation.home")}
           </a>
           <a href="#" className="text-white text-sm">
-            About
+            {t("navigation.aboutUs")}
           </a>
           <a href="#" className="text-white text-sm">
-            Services
+            {t("navigation.services")}
           </a>
           <a href="#" className="text-white text-sm">
-            Contact
+            {t("navigation.contactUs")}
           </a>
         </div>
       </nav>

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { fetchServices } from "@/lib/slices/servicesSlice";
-import HeroSection from "../../sections/homepage/hero";
+import HeroSection from "@/sections/homepage/hero";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Clock, Users } from "lucide-react";
 import Link from "next/link";

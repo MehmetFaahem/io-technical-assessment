@@ -1,0 +1,74 @@
+{
+  "navigation": {
+    "home": "Home",
+    "aboutUs": "About us",
+    "services": "Services",
+    "blog": "Blog",
+    "ourTeam": "Our Team",
+    "contactUs": "Contact us"
+  },
+  "hero": {
+    "title": "Lorem Ipsum",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    "readMore": "Read More"
+  },
+  "buttons": {
+    "bookAppointment": "Book Appointment"
+  },
+  "services": {
+    "loading": "Loading services...",
+    "getStarted": "Get Started",
+    "scheduleConsultation": "Schedule Consultation",
+    "learnMore": "Learn More",
+    "backToHome": "Back to Home",
+    "serviceNotFound": "Service Not Found",
+    "serviceNotFoundDesc": "The requested service could not be found.",
+    "loadingServiceDetails": "Loading service details...",
+    "aboutThisService": "About This Service",
+    "whatWeOffer": "What We Offer",
+    "whyChooseOur": "Why Choose Our",
+    "readyToGetStarted": "Ready to Get Started?",
+    "readyToGetStartedDesc": "Contact us today to discuss your legal needs and get expert guidance.",
+    "expertProtection": "Expert Protection",
+    "expertProtectionDesc": "Comprehensive legal protection tailored to your specific needs and circumstances.",
+    "experiencedTeam": "Experienced Team",
+    "experiencedTeamDesc": "Our team of experienced attorneys brings decades of combined legal expertise.",
+    "timelyService": "Timely Service",
+    "timelyServiceDesc": "Quick response times and efficient handling of all legal matters and inquiries.",
+    "responseTime": "Response Time",
+    "expertTeam": "Expert Team",
+    "hours": "24-48 hours",
+    "lawyers": "15+ Lawyers"
+  },
+  "footer": {
+    "contacts": "Contacts",
+    "about": "About",
+    "ourStrategy": "Our Strategy",
+    "ourAdvantages": "Our Advantages",
+    "socialResponsibility": "Social Responsibility",
+    "ourServices": "Our Services",
+    "allRightsReserved": "© 2024 . All rights reserved."
+  },
+  "ourTeam": {
+    "title": "Our Team",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    "nameHere": "Name Here",
+    "positionHere": "POSITION HERE",
+    "location": "Location",
+    "call": "Call",
+    "email": "Email"
+  },
+  "testimonial": {
+    "title": "What our clients are saying",
+    "description": "Our clients range from individual investors, to local, international as well as fortune 500 companies.Our clients range from individual investors, to local, international as well as fortune 500 companies.",
+    "quote": "With the help of the hospitable staff of Al Safar and Partners I was able to get my work done without any hassle. The help I received helped me a great deal to overcome the issues that I faced. I was always updated about my case and my queries never went unanswered.",
+    "clientName": "Mohammed Saif",
+    "clientPosition": "CEO/Company",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "language": {
+    "en": "EN",
+    "ar": "AR"
+  }
+}

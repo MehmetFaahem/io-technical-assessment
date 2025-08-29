@@ -6,11 +6,12 @@ import {
   fetchServiceBySlug,
   clearCurrentService,
 } from "@/lib/slices/servicesSlice";
-import HeroSection from "../../../sections/homepage/hero";
+import HeroSection from "@/sections/homepage/hero";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, CheckCircle, Clock, Users, Shield } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 export default function ServicePage({
   params,
@@ -21,6 +22,7 @@ export default function ServicePage({
   const { currentService, loading, error } = useAppSelector(
     (state) => state.services
   );
+  const { t } = useTranslation();
 
   useEffect(() => {
     const loadService = async () => {
@@ -47,7 +49,7 @@ export default function ServicePage({
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4B2615] mx-auto mb-4"></div>
               <p className="text-lg text-gray-600">
-                Loading service details...
+                {t("services.loadingServiceDetails")}
               </p>
             </div>
           </div>
@@ -63,15 +65,15 @@ export default function ServicePage({
         <div className="container mx-auto px-6 py-16">
           <div className="text-center">
             <h1 className="text-3xl font-bold text-gray-800 mb-4">
-              Service Not Found
+              {t("services.serviceNotFound")}
             </h1>
             <p className="text-gray-600 mb-8">
-              {error || "The requested service could not be found."}
+              {t("services.serviceNotFoundDesc")}
             </p>
             <Link href="/">
               <Button className="bg-[#4B2615] hover:bg-[#4B2615]/90 text-white">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
+                {t("services.backToHome")}
               </Button>
             </Link>
           </div>
@@ -91,13 +93,13 @@ export default function ServicePage({
           <ol className="flex items-center space-x-2 text-sm text-gray-600">
             <li>
               <Link href="/" className="hover:text-[#4B2615] transition-colors">
-                Home
+                {t("navigation.home")}
               </Link>
             </li>
             <li>/</li>
             <li>
               <Link href="#" className="hover:text-[#4B2615] transition-colors">
-                Services
+                {t("navigation.services")}
               </Link>
             </li>
             <li>/</li>
@@ -124,8 +126,12 @@ export default function ServicePage({
                   <Clock className="w-5 h-5 text-[#4B2615]" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Response Time</p>
-                  <p className="font-semibold text-gray-900">24-48 hours</p>
+                  <p className="text-sm text-gray-600">
+                    {t("services.responseTime")}
+                  </p>
+                  <p className="font-semibold text-gray-900">
+                    {t("services.hours")}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
@@ -133,14 +139,18 @@ export default function ServicePage({
                   <Users className="w-5 h-5 text-[#4B2615]" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Expert Team</p>
-                  <p className="font-semibold text-gray-900">15+ Lawyers</p>
+                  <p className="text-sm text-gray-600">
+                    {t("services.expertTeam")}
+                  </p>
+                  <p className="font-semibold text-gray-900">
+                    {t("services.lawyers")}
+                  </p>
                 </div>
               </div>
             </div>
 
             <Button className="bg-[#4B2615] hover:bg-[#4B2615]/90 text-white px-8 py-3 text-lg">
-              Get Started
+              {t("services.getStarted")}
             </Button>
           </div>
 
@@ -163,7 +173,7 @@ export default function ServicePage({
         {currentService.detailedDescription && (
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-8">
-              About This Service
+              {t("services.aboutThisService")}
             </h2>
             <div className="prose prose-lg max-w-none">
               <p className="text-gray-700 leading-relaxed">
@@ -177,7 +187,7 @@ export default function ServicePage({
         {currentService.features && currentService.features.length > 0 && (
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-8">
-              What We Offer
+              {t("services.whatWeOffer")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {currentService.features.map((feature, index) => (
@@ -200,7 +210,7 @@ export default function ServicePage({
         {/* Why Choose Us */}
         <div className="bg-gray-50 rounded-2xl p-8 mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Why Choose Our {currentService.name}
+            {t("services.whyChooseOur")} {currentService.name}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -208,11 +218,10 @@ export default function ServicePage({
                 <Shield className="w-8 h-8 text-[#4B2615]" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Expert Protection
+                {t("services.expertProtection")}
               </h3>
               <p className="text-gray-600">
-                Comprehensive legal protection tailored to your specific needs
-                and circumstances.
+                {t("services.expertProtectionDesc")}
               </p>
             </div>
             <div className="text-center">
@@ -220,11 +229,10 @@ export default function ServicePage({
                 <Users className="w-8 h-8 text-[#4B2615]" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Experienced Team
+                {t("services.experiencedTeam")}
               </h3>
               <p className="text-gray-600">
-                Our team of experienced attorneys brings decades of combined
-                legal expertise.
+                {t("services.experiencedTeamDesc")}
               </p>
             </div>
             <div className="text-center">
@@ -232,32 +240,30 @@ export default function ServicePage({
                 <Clock className="w-8 h-8 text-[#4B2615]" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Timely Service
+                {t("services.timelyService")}
               </h3>
-              <p className="text-gray-600">
-                Quick response times and efficient handling of all legal matters
-                and inquiries.
-              </p>
+              <p className="text-gray-600">{t("services.timelyServiceDesc")}</p>
             </div>
           </div>
         </div>
 
         {/* CTA Section */}
         <div className="text-center bg-[#4B2615] text-white rounded-2xl p-12">
-          <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+          <h2 className="text-3xl font-bold mb-4">
+            {t("services.readyToGetStarted")}
+          </h2>
           <p className="text-lg mb-8 opacity-90">
-            Contact us today to discuss your legal needs and get expert
-            guidance.
+            {t("services.readyToGetStartedDesc")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button className="bg-white text-[#4B2615] hover:bg-gray-100 px-8 py-3 text-lg">
-              Schedule Consultation
+              {t("services.scheduleConsultation")}
             </Button>
             <Button
               variant="outline"
               className="border-white text-white hover:bg-white hover:text-[#4B2615] px-8 py-3 text-lg"
             >
-              Learn More
+              {t("services.learnMore")}
             </Button>
           </div>
         </div>

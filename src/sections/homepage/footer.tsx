@@ -1,6 +1,11 @@
+"use client";
+
 import { Twitter, Facebook, Plus } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-[#4B2615] text-white">
       <div className="w-full h-[40px] bg-white"></div>
@@ -9,7 +14,7 @@ export default function Footer() {
           {/* Contact and Social Icons */}
           <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-16">
             <span className="text-white font-['DM_Sans'] text-base font-normal leading-[26px]">
-              Contacts
+              {t("footer.contacts")}
             </span>
 
             {/* Social Icons */}
@@ -32,37 +37,37 @@ export default function Footer() {
               href="#"
               className="text-white font-['DM_Sans'] text-base font-normal leading-[26px] hover:opacity-80 transition-opacity"
             >
-              About
+              {t("footer.about")}
             </a>
             <a
               href="#"
               className="text-white font-['DM_Sans'] text-base font-normal leading-[26px] hover:opacity-80 transition-opacity"
             >
-              Our Strategy
+              {t("footer.ourStrategy")}
             </a>
             <a
               href="#"
               className="text-white font-['DM_Sans'] text-base font-normal leading-[26px] hover:opacity-80 transition-opacity"
             >
-              Our Advantages
+              {t("footer.ourAdvantages")}
             </a>
             <a
               href="#"
               className="text-white font-['DM_Sans'] text-base font-normal leading-[26px] hover:opacity-80 transition-opacity"
             >
-              Social Responsibility
+              {t("footer.socialResponsibility")}
             </a>
             <a
               href="#"
               className="text-white font-['DM_Sans'] text-base font-normal leading-[26px] hover:opacity-80 transition-opacity"
             >
-              Our Services
+              {t("footer.ourServices")}
             </a>
           </nav>
 
           {/* Copyright */}
           <div className="text-white font-['DM_Sans'] text-base font-normal leading-[26px] text-right">
-            © 2024 . All rights reserved.
+            {t("footer.allRightsReserved")}
           </div>
         </div>
       </div>

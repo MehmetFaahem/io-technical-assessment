@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Phone, MapPin, Mail } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const teamMembers = [
   {
@@ -39,6 +40,7 @@ const teamMembers = [
 export default function OurTeamSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const itemsPerView = 3;
+  const { t } = useTranslation();
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % teamMembers.length);
@@ -56,12 +58,10 @@ export default function OurTeamSection() {
         {/* Header Section */}
         <div className="text-center mb-16">
           <h1 className="text-[2.75rem] leading-tight font-bold text-[#4a4a4a] mb-6 tracking-tight">
-            Our Team
+            {t("ourTeam.title")}
           </h1>
           <p className="text-[#6b7280] max-w-2xl mx-auto text-base leading-relaxed">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s
+            {t("ourTeam.description")}
           </p>
         </div>
 
@@ -71,7 +71,7 @@ export default function OurTeamSection() {
           <button
             onClick={prevSlide}
             className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-md items-center justify-center hover:shadow-lg transition-shadow duration-200 border border-gray-100"
-            aria-label="Previous team member"
+            aria-label={t("ourTeam.previous")}
           >
             <ChevronLeft className="w-5 h-5 text-gray-600" />
           </button>
@@ -79,7 +79,7 @@ export default function OurTeamSection() {
           <button
             onClick={nextSlide}
             className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-md items-center justify-center hover:shadow-lg transition-shadow duration-200 border border-gray-100"
-            aria-label="Next team member"
+            aria-label={t("ourTeam.next")}
           >
             <ChevronRight className="w-5 h-5 text-gray-600" />
           </button>
@@ -104,10 +104,10 @@ export default function OurTeamSection() {
                   {/* Team Member Info */}
                   <div className="p-6 text-center">
                     <h3 className="text-lg font-semibold text-[#2d3748] mb-1">
-                      {member.name}
+                      {t("ourTeam.nameHere")}
                     </h3>
                     <p className="text-xs text-[#718096] tracking-widest mb-6 uppercase font-medium">
-                      {member.position}
+                      {t("ourTeam.positionHere")}
                     </p>
 
                     {/* Contact Icons */}
@@ -115,21 +115,21 @@ export default function OurTeamSection() {
                       <a
                         href={`tel:${member.phone}`}
                         className="w-8 h-8 bg-[#f7fafc] rounded-full flex items-center justify-center hover:bg-[#edf2f7] transition-colors duration-200"
-                        aria-label="Call"
+                        aria-label={t("ourTeam.call")}
                       >
                         <Phone className="w-4 h-4 text-[#4a5568]" />
                       </a>
                       <a
                         href="#"
                         className="w-8 h-8 bg-[#f7fafc] rounded-full flex items-center justify-center hover:bg-[#edf2f7] transition-colors duration-200"
-                        aria-label="Location"
+                        aria-label={t("ourTeam.location")}
                       >
                         <MapPin className="w-4 h-4 text-[#4a5568]" />
                       </a>
                       <a
                         href={`mailto:${member.email}`}
                         className="w-8 h-8 bg-[#f7fafc] rounded-full flex items-center justify-center hover:bg-[#edf2f7] transition-colors duration-200"
-                        aria-label="Email"
+                        aria-label={t("ourTeam.email")}
                       >
                         <Mail className="w-4 h-4 text-[#4a5568]" />
                       </a>
@@ -158,31 +158,31 @@ export default function OurTeamSection() {
 
                   <div className="p-6 text-center">
                     <h3 className="text-lg font-semibold text-[#2d3748] mb-1">
-                      {member.name}
+                      {t("ourTeam.nameHere")}
                     </h3>
                     <p className="text-xs text-[#718096] tracking-widest mb-6 uppercase font-medium">
-                      {member.position}
+                      {t("ourTeam.positionHere")}
                     </p>
 
                     <div className="flex justify-center space-x-3">
                       <a
                         href={`tel:${member.phone}`}
                         className="w-8 h-8 bg-[#f7fafc] rounded-full flex items-center justify-center hover:bg-[#edf2f7] transition-colors duration-200"
-                        aria-label="Call"
+                        aria-label={t("ourTeam.call")}
                       >
                         <Phone className="w-4 h-4 text-[#4a5568]" />
                       </a>
                       <a
                         href="#"
                         className="w-8 h-8 bg-[#f7fafc] rounded-full flex items-center justify-center hover:bg-[#edf2f7] transition-colors duration-200"
-                        aria-label="Location"
+                        aria-label={t("ourTeam.location")}
                       >
                         <MapPin className="w-4 h-4 text-[#4a5568]" />
                       </a>
                       <a
                         href={`mailto:${member.email}`}
                         className="w-8 h-8 bg-[#f7fafc] rounded-full flex items-center justify-center hover:bg-[#edf2f7] transition-colors duration-200"
-                        aria-label="Email"
+                        aria-label={t("ourTeam.email")}
                       >
                         <Mail className="w-4 h-4 text-[#4a5568]" />
                       </a>
