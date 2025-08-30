@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Twitter, Facebook, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -13,6 +14,19 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row justify-end items-start lg:items-start gap-8">
           {/* Contact and Social Icons */}
           <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-16">
+            <div className="flex items-center gap-8 bg-white rounded-lg px-4 py-2">
+              <input
+                type="text"
+                placeholder="Email"
+                className="bg-transparent border border-white rounded-lg px-4 py-2 text-black focus:outline-none"
+              />
+              <Button
+                variant="outline"
+                className=" border-white text-white border-none bg-[#4B2615] cursor-pointer transition-colors px-6 py-2 text-xs font-medium rounded-lg"
+              >
+                Subscribe
+              </Button>
+            </div>
             <span className="text-white font-['DM_Sans'] text-base font-normal leading-[26px]">
               {t("footer.contacts")}
             </span>
@@ -20,7 +34,7 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex items-center gap-8">
               <Twitter className="w-[17px] h-[18px] text-white" />
-              <Facebook className="w-[11px] h-[18px] text-white" />
+              <Facebook className="w-[24px] h-[18px] text-white" />
               <Plus className="w-[24px] h-[18px] text-white" />
             </div>
           </div>
