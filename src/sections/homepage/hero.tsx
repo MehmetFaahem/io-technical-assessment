@@ -18,6 +18,7 @@ import { useLanguageManager } from "@/lib/hooks/useLanguage";
 
 export default function HeroSection() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const dispatch = useAppDispatch();
   const { services: servicesData, loading } = useAppSelector(
     (state) => state.services
@@ -25,24 +26,67 @@ export default function HeroSection() {
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage, isRTL } = useLanguageManager();
 
+  // Background images array
+  const backgroundImages = [
+    "https://api.builder.io/api/v1/image/assets/TEMP/2cbc0180fe5c96606ff13bf877c427788cce8eb0?width=2800",
+    "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
+    "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2126&q=80",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+  ];
+
   useEffect(() => {
     dispatch(fetchServices());
   }, [dispatch]);
+
+  // Auto-slide effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % backgroundImages.length
+      );
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
+
+  // Navigation functions
+  const goToNext = () => {
+    setCurrentImageIndex(
+      (prevIndex) => (prevIndex + 1) % backgroundImages.length
+    );
+  };
+
+  const goToPrevious = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? backgroundImages.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToImage = (index: number) => {
+    setCurrentImageIndex(index);
+  };
 
   return (
     <div
       className="min-h-screen relative overflow-hidden"
       onClick={() => setIsServicesOpen(false)}
     >
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('https://api.builder.io/api/v1/image/assets/TEMP/2cbc0180fe5c96606ff13bf877c427788cce8eb0?width=2800')`,
-        }}
-      >
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-transparent"></div>
+      {/* Background Images Slider */}
+      <div className="absolute inset-0 w-full h-full">
+        {backgroundImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out ${
+              index === currentImageIndex ? "opacity-100" : "opacity-0"
+            }`}
+            style={{
+              backgroundImage: `url('${image}')`,
+            }}
+          >
+            {/* Dark overlay for better text readability */}
+            <div className="absolute inset-0 bg-black/30"></div>
+          </div>
+        ))}
       </div>
 
       {/* Header Navigation */}
@@ -60,18 +104,18 @@ export default function HeroSection() {
 
         {/* Navigation Menu */}
         <nav className="hidden md:flex items-center space-x-8">
-          <a
-            href="#"
+          <Link
+            href="/en"
             className="text-white text-base font-normal hover:text-white/80 transition-colors"
           >
             {t("navigation.home")}
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="text-white text-base font-normal hover:text-white/80 transition-colors"
           >
             {t("navigation.aboutUs")}
-          </a>
+          </Link>
           <a
             href="#"
             className="text-white text-base font-normal hover:text-white/80 transition-colors flex items-center"
@@ -161,22 +205,40 @@ export default function HeroSection() {
       <div className="relative z-10 flex items-center min-h-[calc(100vh-100px)] px-6 lg:px-24">
         {/* Left Side Pagination Dots */}
         <div className="hidden lg:flex flex-col items-center space-y-4 absolute left-16 top-1/2 transform -translate-y-1/2">
-          <button className="text-white hover:text-white/80 transition-colors pb-16">
+          <button
+            className="text-white hover:text-white/80 transition-colors pb-16"
+            onClick={goToPrevious}
+          >
             <ChevronLeft className="w-8 h-8" />
           </button>
-          <div className="w-3 h-3 bg-white rounded-full"></div>
-          <div className="w-3 h-3 border-2 border-white rounded-full bg-transparent"></div>
-          <div className="w-3 h-3 border-2 border-white rounded-full bg-transparent"></div>
-          <div className="w-3 h-3 border-2 border-white rounded-full bg-transparent"></div>
-          <div className="w-3 h-3 border-2 border-white rounded-full bg-transparent"></div>
+          {backgroundImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToImage(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentImageIndex
+                  ? "bg-white scale-125"
+                  : "border-2 border-white bg-transparent hover:bg-white/50"
+              }`}
+            />
+          ))}
         </div>
 
         {/* Navigation Arrows */}
-        <div className="hidden lg:flex items-center justify-between w-full absolute top-1/2 transform -translate-y-1/2 px-16">
-          {/* <button className="text-white hover:text-white/80 transition-colors">
+        {/* <div className="hidden lg:flex items-center justify-between w-full absolute top-1/2 transform -translate-y-1/2 px-16">
+          <button
+            className="text-white hover:text-white/80 transition-colors"
+            onClick={goToPrevious}
+          >
+            <ChevronLeft className="w-8 h-8" />
+          </button>
+          <button
+            className="text-white hover:text-white/80 transition-colors"
+            onClick={goToNext}
+          >
             <ChevronRight className="w-8 h-8" />
-          </button> */}
-        </div>
+          </button>
+        </div> */}
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 w-full max-w-7xl mx-auto items-center">
@@ -226,6 +288,21 @@ export default function HeroSection() {
           </a>
         </div>
       </nav>
+
+      {/* Mobile Slider Controls */}
+      <div className="md:hidden absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+        {backgroundImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToImage(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === currentImageIndex
+                ? "bg-white scale-125"
+                : "bg-white/50 hover:bg-white/75"
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 }

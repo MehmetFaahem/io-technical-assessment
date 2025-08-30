@@ -25,6 +25,8 @@ export default function ServicePage({
   const { t } = useTranslation();
 
   useEffect(() => {
+    window.scrollTo({ top: 600, behavior: "smooth" });
+
     const loadService = async () => {
       const { services } = await params;
       // Convert the service name to slug format
